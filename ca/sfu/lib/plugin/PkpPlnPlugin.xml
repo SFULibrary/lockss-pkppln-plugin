@@ -57,12 +57,16 @@
     <long>6000</long>
   </entry>
   <entry>
+    <string>au_refetch_depth</string>
+    <int>999</int>
+  </entry>
+  <entry>
     <string>au_start_url</string>
-    <string>&quot;%s&quot;, manifest_url</string>
+    <string>"%s", manifest_url</string>
   </entry>
   <entry>
     <string>au_name</string>
-    <string>&quot;Preserved content from %s vol %d&quot;, original_journal_title, volume</string>
+    <string>"Preserved content from %s vol %d", original_journal_title, volume</string>
   </entry>
   <entry>
     <string>plugin_name</string>
@@ -83,9 +87,9 @@
   <entry>
     <string>au_crawlrules</string>
     <list>
-      <string>4,&quot;^%s&quot;, base_url</string>
-      <string>1,&quot;^%s&quot;, manifest_url</string>
-      <string>1,&quot;^%s/fetch/[^/]+[^/]+.zip&quot;, base_url</string>
+      <string>4,"^%s", base_url</string>
+      <string>1,"^%s", manifest_url</string>
+      <string>1,"^%s/fetch/[^/]+[^/]+.zip", base_url</string>
     </list>
   </entry>
 </map>
