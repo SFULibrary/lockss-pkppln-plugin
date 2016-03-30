@@ -21,7 +21,7 @@
                 <defaultOnly>false</defaultOnly>
             </org.lockss.daemon.ConfigParamDescr>
             <org.lockss.daemon.ConfigParamDescr>
-                <key>volume</key>
+                <key>container_number</key>
                 <displayName>Volume No.</displayName>
                 <description>The volume number for the deposit</description>
                 <type>6</type>
@@ -36,15 +36,6 @@
                 <type>3</type>
                 <size>200</size>
                 <definitional>false</definitional>
-                <defaultOnly>false</defaultOnly>
-            </org.lockss.daemon.ConfigParamDescr>
-            <org.lockss.daemon.ConfigParamDescr>
-                <key>journal_id</key>
-                <displayName>Journal Identifier</displayName>
-                <description>Identifier for journal (often used as part of file names)</description>
-                <type>1</type>
-                <size>40</size>
-                <definitional>true</definitional>
                 <defaultOnly>false</defaultOnly>
             </org.lockss.daemon.ConfigParamDescr>
             <org.lockss.daemon.ConfigParamDescr>
