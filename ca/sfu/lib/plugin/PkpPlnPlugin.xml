@@ -3,15 +3,6 @@
         <string>plugin_config_props</string>
         <list>
             <org.lockss.daemon.ConfigParamDescr>
-                <key>original_journal_title</key>
-                <displayName>Original Journal Title</displayName>
-                <description>The preserved journal's original name, not the one assigned by the staging server</description>
-                <type>1</type>
-                <size>200</size>
-                <definitional>false</definitional>
-                <defaultOnly>false</defaultOnly>
-            </org.lockss.daemon.ConfigParamDescr>
-            <org.lockss.daemon.ConfigParamDescr>
                 <key>base_url</key>
                 <displayName>Base URL</displayName>
                 <description>Usually of the form http://&lt;journal-name&gt;.com/</description>
@@ -55,7 +46,7 @@
     </entry>
     <entry>
         <string>au_name</string>
-        <string>"Preserved content from %s vol %d", original_journal_title, volume</string>
+        <string>"Preserved content from OJS journals, part %s", container_number</string>
     </entry>
     <entry>
         <string>au_permission_url</string>
