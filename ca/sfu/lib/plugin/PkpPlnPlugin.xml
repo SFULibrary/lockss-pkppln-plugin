@@ -21,7 +21,7 @@
                 <defaultOnly>false</defaultOnly>
             </org.lockss.daemon.ConfigParamDescr>
             <org.lockss.daemon.ConfigParamDescr>
-                <key>volume</key>
+                <key>container_number</key>
                 <displayName>Volume No.</displayName>
                 <type>6</type>
                 <size>8</size>
@@ -38,15 +38,6 @@
                 <defaultOnly>false</defaultOnly>
             </org.lockss.daemon.ConfigParamDescr>
             <org.lockss.daemon.ConfigParamDescr>
-                <key>journal_id</key>
-                <displayName>Journal Identifier</displayName>
-                <description>Identifier for journal (often used as part of file names)</description>
-                <type>1</type>
-                <size>40</size>
-                <definitional>true</definitional>
-                <defaultOnly>false</defaultOnly>
-            </org.lockss.daemon.ConfigParamDescr>
-            <org.lockss.daemon.ConfigParamDescr>
                 <key>permission_url</key>
                 <displayName>LOCKSS Permission Url</displayName>
                 <description>URL for the LOCKSS permission statement on the server hosting the content.</description>
@@ -59,7 +50,7 @@
     </entry>
     <entry>
         <string>plugin_version</string>
-        <string>5</string>
+        <string>6</string>
     </entry>
     <entry>
         <string>au_name</string>
