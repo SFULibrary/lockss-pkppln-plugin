@@ -5,7 +5,7 @@
             <org.lockss.daemon.ConfigParamDescr>
                 <key>original_journal_title</key>
                 <displayName>Original Journal Title</displayName>
-                <description></description>
+                <description>The preserved journal's original name, not the one assigned by the staging server</description>
                 <type>1</type>
                 <size>200</size>
                 <definitional>false</definitional>
@@ -23,6 +23,7 @@
             <org.lockss.daemon.ConfigParamDescr>
                 <key>volume</key>
                 <displayName>Volume No.</displayName>
+                <description>The volume number for the deposit</description>
                 <type>6</type>
                 <size>8</size>
                 <definitional>true</definitional>
@@ -49,7 +50,7 @@
             <org.lockss.daemon.ConfigParamDescr>
                 <key>permission_url</key>
                 <displayName>LOCKSS Permission Url</displayName>
-                <description>URL for the LOCKSS permission statement on the server hosting the content.</description>
+                <description>URL for the LOCKSS permission statement on the server hosting the content</description>
                 <type>3</type>
                 <size>200</size>
                 <definitional>false</definitional>
@@ -59,24 +60,24 @@
     </entry>
     <entry>
         <string>plugin_version</string>
-        <string>5</string>
+        <string>6</string>
     </entry>
     <entry>
         <string>au_name</string>
-        <string>&quot;Preserved content from %s vol %d&quot;, original_journal_title, volume</string>
+        <string>"Preserved content from %s vol %d", original_journal_title, volume</string>
     </entry>
     <entry>
         <string>au_permission_url</string>
         <list>
-            <string>&quot;%s&quot;, manifest_url</string>
-            <string>&quot;%s&quot;, permission_url</string>
+            <string>"%s", manifest_url</string>
+            <string>"%s", permission_url</string>
         </list>
     </entry>
     <entry>
         <string>au_start_url</string>
         <list>
-            <string>&quot;%s&quot;, manifest_url</string>
-            <string>&quot;%s&quot;, permission_url</string>
+            <string>"%s", manifest_url</string>
+            <string>"%s", permission_url</string>
         </list>
     </entry>
     <entry>
@@ -97,14 +98,14 @@
     </entry>
     <entry>
         <string>plugin_identifier</string>
-        <string>ca.sfu.lib.plugin.pkppln</string>
+        <string>ca.sfu.lib.plugin.pkppln.PkpPlnPlugin</string>
     </entry>
     <entry>
         <string>au_crawlrules</string>
         <list>
-            <string>1,&quot;^%sfetch/%s/[^/]+\.zip$&quot;, base_url, journal_id</string>
-            <string>1,&quot;^%s$&quot;, manifest_url</string>
-            <string>1,&quot;^%s$&quot;, permission_url</string>
+            <string>1,"^%sfetch/%s/[^/]+\.zip$", base_url, journal_id</string>
+            <string>1,"^%s$", manifest_url</string>
+            <string>1,"^%s$", permission_url</string>
         </list>
     </entry>
     <entry>
