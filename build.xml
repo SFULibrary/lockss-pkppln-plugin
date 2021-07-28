@@ -1,31 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<project name="Pkp Pln Plugin" default="build" basedir=".">
-
+<project name="Pkp Pln Plugin" default="doAll" basedir=".">
+  <description>
+    Generate signing keys, build a LOCKSS plugin.jar, and sign and verify it.
+  </description>
   <property name='plugin.name' value='PkpPlnPlugin'/>
   <property name='plugin.path' value='ca/sfu/lib/plugin' />
-  
   <property name='plugin.xml' value="${plugin.name}.xml" />
   <property name='plugin.jar' value="${plugin.name}.jar" />
-  
-  <property name='build.dir' value='build'/>
-  
-  <target name="build" description="Generate an unsigned LOCKSS plugin jar.">
-    <mkdir dir="${build.dir}" />    
-    <jar destfile="${build.dir}/${plugin.jar}">
-      <fileset dir=".">
-	<include name="${plugin.path}/${plugin.xml}"/>
-      </fileset>
-      <manifest>
-	<section name="${plugin.path}/${plugin.xml}" >
-	  <attribute name="Lockss-Plugin" value="true" />
-	</section>
-      </manifest>
-    </jar>
+	<property name="build.dir" value="build"/>
+  <property name="key.dir" value="keys"/>
+
+  <property name="alias" value="local"/>
+  <property file="${alias}.properties"/>
+
+  <target name="doAll" depends="clean,build,sign-plugin,verify-plugin"/>
+  <target name="doKeys" depends="generateKeys,exportCert,exportPub"/>
+
+  <target name="generateKeys">
+    <description>
+      Generate a public/private signing key pair and store them in a keystore file.
+    </description>
+    <delete dir="${key.dir}"/>
+    <mkdir dir="${key.dir}"/>
+    <genkey alias="${alias}" storepass="${key.pass}"
+      keystore="${key.dir}/${alias}.keystore" validity="${key.validity}"
+      storetype="${store.type}">
+      <dname>
+        <param name="CN" value="${user.cn}"/>
+        <param name="OU" value="${user.ou}"/>
+        <param name="O" value="${user.o}"/>
+        <param name="L" value="${user.l}"/>
+        <param name="ST" value="${user.st}"/>
+        <param name="C" value="${user.c}"/>
+      </dname>
+    </genkey>
   </target>
+
+  <target name="exportCert">
+    <description>
+      Export the public certificate from the keystore.
+    </description>
+    <exec executable="keytool">
+      <arg value="-export"/>
+      <arg line="-keystore ${key.dir}/${alias}.keystore"/>
+      <arg line="-alias ${alias}"/>
+      <arg line="-storepass ${key.pass}"/>
+      <arg line="-file ${key.dir}/${alias}.cer"/>
+    </exec>
+  </target>
+
+  <target name="exportPub">
+    <description>
+      Convert the public certificate to a public key and store it.
+    </description>
+    <exec executable="keytool">
+      <arg value="-import"/>
+      <arg value="-noprompt"/>
+      <arg line="-alias ${alias}"/>
+      <arg line="-file ${key.dir}/${alias}.cer"/>
+      <arg line="-keystore ${alias}-public.keystore"/>
+      <arg line="-storepass ${key.pass}"/>
+    </exec>
+  </target>
+
+  <target name="build">
+    <description>
+      Build an unsigned LOCKSS plugin jar.
+    </description>
+		<mkdir dir="${build.dir}"/>
+		<jar destfile="${build.dir}/${plugin.jar}">
+			<fileset dir=".">
+				<include name="${plugin.path}/${plugin.xml}"/>
+			</fileset>
+			<manifest>
+				<section name="${plugin.path}/${plugin.xml}">
+					<attribute name="Lockss-Plugin" value="true"/>
+				</section>
+			</manifest>
+		</jar>
+	</target>
+
+  <target name="sign-plugin">
+    <description>
+      Sign a jar file with the private key.
+    </description>
+		<signjar jar="${build.dir}/${plugin.jar}"
+					signedJar="${plugin.jar}"
+					keystore="${key.dir}/${alias}.keystore"
+					keypass="${key.pass}"
+					storepass="${key.pass}"
+					tsaurl="${ts.url}"
+					alias="${alias}" />
+	</target>
+
+  <target name="verify-plugin">
+    <description>
+      Verify the signed jar with the public key.
+    </description>
+		<verifyjar jar="${plugin.jar}"
+					keystore="${alias}-public.keystore"
+					alias="${alias}" />
+    <echo>
+      Success. You should now distribute the files
+        ${plugin.jar}
+        ${alias}-public.keystore
+    </echo>
+	</target>
 
   <target name="clean" description="Clean up the build files.">
     <delete dir="${build.dir}"/>
   </target>
-  
+
 </project>
