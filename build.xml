@@ -4,7 +4,7 @@
     Generate signing keys, build a LOCKSS plugin.jar, and sign and verify it.
   </description>
   <property name='plugin.name' value='PkpPlnPlugin'/>
-  <property name='plugin.path' value='ca/sfu/lib/plugin' />
+  <property name='plugin.path' value='ca/sfu/lib/plugin/pkppln' />
   <property name='plugin.xml' value="${plugin.name}.xml" />
   <property name='plugin.jar' value="${plugin.name}.jar" />
 	<property name="build.dir" value="build"/>
@@ -45,6 +45,7 @@
       <arg line="-keystore ${key.dir}/${alias}.keystore"/>
       <arg line="-alias ${alias}"/>
       <arg line="-storepass ${key.pass}"/>
+      <arg line="-storetype ${store.type}"/>
       <arg line="-file ${key.dir}/${alias}.cer"/>
     </exec>
   </target>
@@ -58,6 +59,7 @@
       <arg value="-noprompt"/>
       <arg line="-alias ${alias}"/>
       <arg line="-file ${key.dir}/${alias}.cer"/>
+      <arg line="-storetype ${store.type}"/>
       <arg line="-keystore ${alias}-public.keystore"/>
       <arg line="-storepass ${key.pass}"/>
     </exec>
@@ -99,6 +101,7 @@
     </description>
 		<verifyjar jar="${plugin.jar}"
 					keystore="${alias}-public.keystore"
+					storepass="${key.pass}"
 					alias="${alias}" />
     <echo>
       Success. You should now distribute the files
