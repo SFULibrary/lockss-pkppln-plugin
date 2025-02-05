@@ -23,6 +23,7 @@
     <delete dir="${key.dir}"/>
     <mkdir dir="${key.dir}"/>
     <genkey alias="${alias}" storepass="${key.pass}"
+      keyalg="${key.keyalg}"
       keystore="${key.dir}/${alias}.keystore" validity="${key.validity}"
       storetype="${store.type}">
       <dname>
@@ -60,6 +61,7 @@
       <arg line="-alias ${alias}"/>
       <arg line="-file ${key.dir}/${alias}.cer"/>
       <arg line="-storetype ${store.type}"/>
+      <arg line="-keyalg ${key.keyalg}"/>
       <arg line="-keystore ${alias}-public.keystore"/>
       <arg line="-storepass ${key.pass}"/>
     </exec>
